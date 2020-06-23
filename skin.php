@@ -1,5 +1,19 @@
 <?php 
-
+	$timestamp = 1592908399;// = Tue, 23 Jun 2020 10:33:19 GMT
+	$tsstring = gmdate('D, d M Y H:i:s ', $timestamp) . 'GMT';	
+	$etag = ''.$timestamp; //'' can be like language if necessar
+	$if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false;
+	$if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ? $_SERVER['HTTP_IF_NONE_MATCH'] : false;
+	if ((($if_none_match && $if_none_match == $etag) || (!$if_none_match)) &&
+		($if_modified_since && $if_modified_since == $tsstring))
+	{
+		header('HTTP/1.1 304 Not Modified');
+		exit();
+	}else{
+		header("Last-Modified: $tsstring");
+		header("ETag: \"{$etag}\"");
+	}
+	
 	header("Content-type: text/css");
 
 	$id = $_GET['widget_id'];
