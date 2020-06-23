@@ -10,8 +10,11 @@
 		header('HTTP/1.1 304 Not Modified');
 		exit();
 	}else{
-		header("Last-Modified: $tsstring");
-		header("ETag: \"{$etag}\"");
+		
+		if(isset($_GET['widget_id']) && isset($_GET['skin']) ){
+			header("Last-Modified: $tsstring");
+			header("ETag: \"{$etag}\"");
+		}
 	}
 	
 	header("Content-type: text/css");
