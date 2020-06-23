@@ -13,38 +13,37 @@ global $registered_skins;
 
 class dc_jqaccordion {
 
-	function dc_jqaccordion(){
+	public function __construct(){
 		global $registered_skins;
 	
 		if(!is_admin()){
 		
 			// Header styles
-			add_action( 'init', array('dc_jqaccordion', 'header') );
+			add_action( 'init', array($this, 'header') );
 		
 			// Shortcodes
 			add_shortcode( 'dcwp-jquery-accordion', 'dcwp_dc_jqaccordion_shortcode' );
 		}
-		add_action( 'wp_footer', array('dc_jqaccordion', 'footer') );
+		add_action( 'wp_footer', array($this, 'footer') );
 		
 		$registered_skins = array();
 	}
 
-	function header(){
-		
+	public function header(){
 		// Scripts
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jqueryhoverintent', dc_jqaccordion::get_plugin_directory() . '/js/jquery.hoverIntent.minified.js', array('jquery') );
-		wp_enqueue_script( 'jquerycookie', dc_jqaccordion::get_plugin_directory() . '/js/jquery.cookie.js', array('jquery') );
-		wp_enqueue_script( 'dcjqaccordion', dc_jqaccordion::get_plugin_directory() . '/js/jquery.dcjqaccordion.2.9.js', array('jquery') );
+		wp_enqueue_script( 'jqueryhoverintent', $this->get_plugin_directory() . '/js/jquery.hoverIntent.minified.js', array('jquery') );
+		wp_enqueue_script( 'jquerycookie', $this->get_plugin_directory() . '/js/jquery.cookie.js', array('jquery') );
+		wp_enqueue_script( 'dcjqaccordion', $this->get_plugin_directory() . '/js/jquery.dcjqaccordion.2.9.js', array('jquery') );
 	}
 	
-	function footer(){
+	public function footer(){
 		//echo "\n\t";
 	}
 	
 	function options(){}
 
-	function get_plugin_directory(){
+	public function get_plugin_directory(){
 		return WP_PLUGIN_URL . '/jquery-vertical-accordion-menu';	
 	}
 

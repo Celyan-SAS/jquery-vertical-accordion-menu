@@ -245,7 +245,8 @@ class dc_jqaccordion_widget extends WP_Widget {
 					$skin = $wpdcjqaccordion['skin'];
 					$skin = htmlspecialchars(ucfirst(preg_replace('/\..*$/', '', $skin)));
 					if($skin != 'No-theme'){
-						echo "\n\t<link rel=\"stylesheet\" href=\"".dc_jqaccordion::get_plugin_directory()."/skin.php?widget_id=".$key."&amp;skin=".strtolower($skin)."\" type=\"text/css\" media=\"screen\"  />";
+						$directory = WP_PLUGIN_URL . '/jquery-vertical-accordion-menu';
+						echo "\n\t<link rel=\"stylesheet\" href=\"".$directory."/skin.php?widget_id=".$key."&amp;skin=".strtolower($skin)."\" type=\"text/css\" media=\"screen\"  />";
 					}
 				}
 			}
